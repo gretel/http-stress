@@ -8,14 +8,13 @@ class Transaction(object):
 
     def run(self):
         # id of testcase
-        test_id = 'www.iav.com_ssl'
+        test_id = 'mib-jira.iavtech.net_ssl'
 
         # request timeout
         http_timeout = 10
 
         # http server to profile
-        url = 'https://www.iav.com/'
-
+        url = 'https://mib-jira.iavtech.net/'
 
         # initialize urllib
         req = urllib2.Request(url = url)
@@ -40,14 +39,15 @@ class Transaction(object):
         # stop measurement
         latency = time.time() - start_timer
 
-        # verbose info
-        print 'url:', response.geturl(), ', code:', response.code, ', hash:', hashlib.sha224(content).hexdigest()
-
         # store latency
         self.custom_timers[test_id] = latency
 
+        # verbose info
+        print 'url:', response.geturl(), ', code:', response.code, ', hash:', hashlib.sha224(content).hexdigest()
+
         # asset response code of 200 (HTTP OK)
-        assert (response.code == 200), 'Bad Response: HTTP %s' % response.code
+        #assert (response.code == 200), 'Bad Response: HTTP %s' % response.code
+        assert (response.code == 401), 'Bad Response: HTTP %s' % response.code
 
         # assert known string in content
         #assert ('iav' in content), 'Text Assertion Failed'
