@@ -20,29 +20,27 @@ class LoadTest(object):
         s.max_redirects = self.http_max_redirects
         s.headers = self.http_headers
         s.verify = self.https_verify_cert
+        http_params = self.http_params
 
-        # set query parameters
-        http_params = {'rndm': self.rndm}
-
-        # do request
-        if hasattr(self, 'https_client_cert'):
-            r = s.get(self.http_url, timeout=self.http_timeout, params=http_params, cert=self.https_client_cert)
-        else:
-            r = s.get(self.http_url, timeout=self.http_timeout, params=http_params)
+        try:
+            if hasattr(self, 'https_client_cert'):
+                r = s.get(self.http_url, timeout=self.http_timeout, params=http_params, cert=self.https_client_cert)
+            else:
+                r = s.get(self.http_url, timeout=self.http_timeout, params=http_params)
+        except requests.exceptions.RequestException as e:
+            print '[RequestException] %s' % e
 
         # stop measurement
         latency = time.time() - start_timer
 
         # store latency
-        self.custom_timers[self.test_id] = latency
+        self.custom_timers[r.status_code] = latency
 
         # verbose output
-        #print 'id -> ', self.test_id, ', url:', r.url, ', code:', r.status_code, ', reason:', r.reason, ', elapsed:', r.elapsed, 'hash:', hashlib.sha224(r.text).hexdigest()
+        print '[%s] -> %d = %s => %.5f secs (%s)' % (r.url, r.status_code, r.reason, latency, hashlib.sha224(r.text).hexdigest())
 
-        # asset response code of 200 (HTTP OK)
-        assert (r.status_code == requests.codes.ok), 'Bad Response: HTTP Code %s' % r.status_code
-
-        # assert known string in content
-        #assert ('iav' in content), 'Text Assertion Failed'
-
-#
+        if r.status_code == self.http_code_ok:
+            if hasattr(self, 'assert_string'):
+                assert (self.assert_string in r.content), 'Assertion Failed, Text: %s' % self.assert_string
+        else:
+            assert (True), 'Assertion Failed: HTTP Code: %s' % r.status_code
