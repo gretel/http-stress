@@ -33,7 +33,7 @@ class Transaction(LoadTest):
         # client certificate (comment out to disable)
         self.https_client_cert = './certs/client.pem'
 
-        # verify server certificate (True/False)
+        # verify server certificate (True/False/'cacert')
         self.https_verify_cert = './certs/cacert.pem'
 
         # assert string in response tesxt (comment out to disable)

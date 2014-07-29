@@ -1,6 +1,5 @@
 # tom hensel <tom@jitter.eu> for CIPHRON [http://ciphron.de/]
 
-import os, sys
 import time
 import requests
 import hashlib
@@ -25,8 +24,10 @@ class LoadTest(object):
 
         try:
             if hasattr(self, 'https_client_cert'):
+                using_cert = True
                 r = s.get(self.http_url, timeout=self.http_timeout, params=http_params, cert=self.https_client_cert)
             else:
+                using_cert = False
                 r = s.get(self.http_url, timeout=self.http_timeout, params=http_params)
         except requests.exceptions.RequestException as e:
             print '[RequestException] %s' % e
@@ -38,7 +39,7 @@ class LoadTest(object):
         self.custom_timers[r.status_code] = latency
 
         # verbose output
-        print '[%s] -> %d = %s => %.5f secs (%s)' % (r.url, r.status_code, r.reason, latency, hashlib.sha224(r.text).hexdigest())
+        print '[%s] (cert: %s) -> %d/%s => %.5f secs (%s)' % (r.url, using_cert, r.status_code, r.reason, latency, hashlib.sha224(r.text).hexdigest())
 
         if r.status_code == self.http_code_ok:
             if hasattr(self, 'assert_string'):
