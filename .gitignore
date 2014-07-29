@@ -1,4 +1,5 @@
 .DS_Store
+*.jtl
 
 /results
 *.sublime-workspace
