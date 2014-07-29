@@ -1,9 +1,9 @@
 # tom hensel <tom@jitter.eu> for CIPHRON [http://ciphron.de/]
 
+import os, sys
+import time
 import requests
 import hashlib
-import time
-import sys
 
 class NotConfiguredException(Exception):
     pass
