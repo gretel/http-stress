@@ -44,7 +44,7 @@ class Transaction(LoadTest):
         # sanity check
         if hasattr(self, 'https_client_cert'):
             if os.path.isfile(self.https_client_cert) and os.access(self.https_client_cert, os.R_OK):
-                print 'using client certificate: %s' % self.https_client_cert
+                pass
             else:
                 print 'thread aborting! unable to access client certificate: %s' % self.https_client_cert
                 sys.exit(1)
