@@ -3,6 +3,7 @@
 import requests
 import hashlib
 import time
+import sys
 
 class NotConfiguredException(Exception):
     pass
