@@ -34,7 +34,7 @@ class Transaction(LoadTest):
         self.https_client_cert = './certs/client.pem'
 
         # verify server certificate (True/False)
-        self.https_verify_cert = False
+        self.https_verify_cert = './certs/cacert.pem'
 
         # assert string in response tesxt (comment out to disable)
         self.assert_text = 'IAV'
