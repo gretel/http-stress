@@ -22,7 +22,10 @@ class LoadTest(object):
         s = requests.Session()
         if hasattr(self, 'https_ssl_version'):
             # use custom HTTPAdpater
-            s.mount('https://', SSLAdapter(self.https_ssl_version))
+            s.mount('https://', SSLAdapter(ssl_version=self.https_ssl_version))
+        if hasattr(self, 'https_verify_cert'):
+            # set verification of server cert
+            s.verify = self.https_verify_cert
         if hasattr(self, 'http_max_redirects'):
             # set maximum number of http redirects
             s.max_redirects = self.http_max_redirects
@@ -32,9 +35,6 @@ class LoadTest(object):
         if hasattr(self, 'http_params'):
             # set http query parameter(s)
             http_params = self.http_params
-        if hasattr(self, 'https_verify_cert'):
-            # set verification of server cert
-            s.verify = self.https_verify_cert
 
         try:
             # store point in time
