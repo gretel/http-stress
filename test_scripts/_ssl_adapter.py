@@ -1,3 +1,5 @@
+# 2014 - tom hensel <tom@jitter.eu> for CIPHRON [http://ciphron.de/]
+
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
