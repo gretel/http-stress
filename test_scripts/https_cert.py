@@ -10,7 +10,7 @@ class Transaction(LoadTest):
         # initialize multi-mechanize
         self.custom_timers = {}
 
-# ----- configuration begin ---
+# ----configuration begin ---
 
         # test endpoint
         self.http_url = 'https://mib-jira.iavtech.net/'
@@ -36,10 +36,13 @@ class Transaction(LoadTest):
         # verify server certificate (True/False/'cacert')
         self.https_verify_cert = './certs/cacert.pem'
 
-        # assert string in response tesxt (comment out to disable)
+        # assert string in text of response (comment out to disable)
         self.assert_text = 'IAV'
 
-# ----- configuration end ---
+        # assert hash of content in response (comment out to disable)
+        self.assert_hash = '3949234982374982374982374' # todo example hash
+
+# ----configuration end ---
 
         # sanity check
         if hasattr(self, 'https_client_cert'):
@@ -48,3 +51,4 @@ class Transaction(LoadTest):
             else:
                 print 'thread aborting! unable to access client certificate: %s' % self.https_client_cert
                 sys.exit(1)
+
