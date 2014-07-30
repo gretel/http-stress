@@ -1,4 +1,4 @@
-# tom hensel <tom@jitter.eu> for CIPHRON [http://ciphron.de/]
+# 2014 - tom hensel <tom@jitter.eu> for CIPHRON [http://ciphron.de/]
 
 import sys
 import time
@@ -53,7 +53,7 @@ class LoadTest(object):
             # store latency
             latency = curLatency(start_timer)
             self.custom_timers['Exception_%s' % name] = latency
-            self.logger.error('<%s> %s => %.5f', name , exc_value, latency)
+            self.logger.info('%s: %s', name , exc_value)
             # bail out
             return
 
