@@ -13,7 +13,7 @@ class Transaction(LoadTest):
 # ----configuration begin ---
 
         # test endpoint
-        self.http_url = 'https://mib-jira.iavtech.net/'
+        self.http_url = 'https://this.might.get.flood.ed/'
 
         # http timeout
         self.http_timeout = 3
@@ -40,10 +40,10 @@ class Transaction(LoadTest):
         self.https_verify_cert = './certs/cacert.pem'
 
         # assert string in text of response (comment out to disable)
-        #self.assert_text = 'IAV'
+        #self.assert_text = 'eat my cert'
 
         # assert hash of content in response (comment out to disable)
-        #self.assert_hash = '3949234982374982374982374' # todo example hash
+        #self.assert_hash = '' # todo example hash
 
 # ----configuration end ---
 
