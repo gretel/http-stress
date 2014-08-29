@@ -5,7 +5,6 @@ import sys
 import random
 import ssl
 import logging, logging.handlers
-from _logging import TestLogging
 from _load_test import LoadTest
 
 class Transaction(LoadTest):
@@ -50,6 +49,22 @@ class Transaction(LoadTest):
 
         # initialize multi-mechanize
         self.custom_timers = {}
+
+        # initialize logging facility
+        logging.basicConfig(level=logging.DEBUG, format='[%(name)s] %(levelname)s: %(message)s')
+
+        formatter = logging.Formatter('%(asctime)s [%(name)s] %(levelname)s: %(message)s')
+        logger = logging.getLogger(__name__)
+
+        sh = logging.StreamHandler()
+        logger.addHandler(sh)
+
+        fh = logging.handlers.RotatingFileHandler('./log/%s.log' % __name__, maxBytes=327680000, backupCount=24)
+        fh.setLevel(logging.INFO)
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+
+        logger.info('Running on: %s, SSL Library: %s', os.uname(), ssl.OPENSSL_VERSION)
 
         # sanity check
         if hasattr(self, 'https_client_cert'):
