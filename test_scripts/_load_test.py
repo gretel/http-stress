@@ -41,10 +41,10 @@ class LoadTest(object):
             start_timer = time.time()
             # send client certificate?
             if hasattr(self, 'https_client_cert'):
-                using_cert = True # todo get protocol from request?
+                using_cert = True # TODO get protocol from request?
                 r = s.get(self.http_url, timeout=self.http_timeout, params=http_params, cert=self.https_client_cert)
             else:
-                using_cert = False # todo get protocol from request?
+                using_cert = False # TODO get protocol from request?
                 r = s.get(self.http_url, timeout=self.http_timeout, params=http_params)
         except:
             # get exception info, ignore traceback
